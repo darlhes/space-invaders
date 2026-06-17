@@ -1,37 +1,39 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class Hero here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Hero extends Actor
 {
-    SimpleTimer shotTimer = new SimpleTimer();
-    int SHOT_INTERVAL = 250;
-    
+    private SimpleTimer shotTimer = new SimpleTimer();
+
+    private final int intervaloTiro = 250;
+    private final int velocidade = 5;
+
     public Hero()
     {
         getImage().scale(30, 25);
     }
-    /**
-     * Act - do whatever the Hero wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+
     public void act()
+    {
+        mover();
+        atirar();
+    }
+
+    private void mover()
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            move (5);
+            move(velocidade);
         }
+
         if (Greenfoot.isKeyDown("left"))
         {
-            move(-5);
+            move(-velocidade);
         }
-        
-        //Aqui é onde atiramos
-        if (Greenfoot.isKeyDown("space") && shotTimer.millisElapsed() > SHOT_INTERVAL)
+    }
+
+    private void atirar()
+    {
+        if (Greenfoot.isKeyDown("space") && shotTimer.millisElapsed() > intervaloTiro)
         {
             getWorld().addObject(new Bullet(), getX(), getY());
             shotTimer.mark();

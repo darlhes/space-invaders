@@ -1,29 +1,50 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class Bullet here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Bullet extends Actor
 {
-    /**
-     * Act - do whatever the Bullet wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private final int velocidade = 8;
+
     public void act()
     {
-        setLocation(getX(), getY() - 8);
-        
-        Enemy e = (Enemy) getOneIntersectingObject(Enemy.class);
-        if (e != null)
+        mover();
+        verificarColisao();
+
+        if (getWorld() != null)
         {
-            getWorld().removeObject(e);
-            getWorld().removeObject(this);
+            removerSeSaiuDaTela();
         }
-        
-        else if (getY() < 5)
+    }
+
+    private void mover()
+    {
+        setLocation(getX(), getY() - velocidade);
+    }
+
+    private void verificarColisao()
+    {
+        Enemy inimigo = (Enemy) getOneIntersectingObject(Enemy.class);
+
+        if (inimigo != null)
+        {
+            World mundo = getWorld();
+
+            if (mundo instanceof MyWorld)
+            {
+                MyWorld fase = (MyWorld) mundo;
+                fase.inimigoDestruido(inimigo);
+            }
+            else
+            {
+                mundo.removeObject(inimigo);
+            }
+
+            mundo.removeObject(this);
+        }
+    }
+
+    private void removerSeSaiuDaTela()
+    {
+        if (getY() < 5)
         {
             getWorld().removeObject(this);
         }
