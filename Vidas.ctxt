@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Vidas
+comment1.params=vidasIniciais
+comment1.target=Vidas(int)
+comment2.params=
+comment2.target=void\ perderVida()
+comment3.params=
+comment3.target=int\ getVidas()
+comment4.params=
+comment4.target=void\ atualizarImagem()
+numComments=5

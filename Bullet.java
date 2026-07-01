@@ -26,19 +26,24 @@ public class Bullet extends Actor
 
         if (inimigo != null)
         {
-            World mundo = getWorld();
+            boolean destruido = inimigo.receberDano();
 
-            if (mundo instanceof MyWorld)
+            if (destruido)
             {
-                MyWorld fase = (MyWorld) mundo;
-                fase.inimigoDestruido(inimigo);
-            }
-            else
-            {
-                mundo.removeObject(inimigo);
+                World mundo = getWorld();
+
+                if (mundo instanceof MyWorld)
+                {
+                    MyWorld fase = (MyWorld) mundo;
+                    fase.inimigoDestruido(inimigo);
+                }
+                else
+                {
+                    mundo.removeObject(inimigo);
+                }
             }
 
-            mundo.removeObject(this);
+            getWorld().removeObject(this);
         }
     }
 
